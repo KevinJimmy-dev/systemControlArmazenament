@@ -13,7 +13,8 @@ $result_produto = "INSERT INTO armazenamento (nome_produto, quantidade_produto, 
 $resultado_produto = mysqli_query($conexaoMysqli, $result_produto);
 
 if(mysqli_insert_id($conexaoMysqli)){
-    $_SESSION['msg'] = "<p style='color:green;'>Produto com o nome de: <strong style='color:black'>". $nome_produto . "</strong> foi cadastrado com sucesso!</p>";
+    $_SESSION['msg'] = "<p style='color:green;'>Produto com o nome de: <strong style='color:black'>".       $nome_produto . "</strong> foi cadastrado com sucesso!</p>" . $tabela;
+
     header("Location: areaPrivada.php");
 } else{
     $_SESSION['msg'] ="<p style='color:red;'>Produto não foi cadastrado com sucesso!</p>";
