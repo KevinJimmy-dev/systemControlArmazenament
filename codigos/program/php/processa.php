@@ -12,10 +12,12 @@ $observacao_produto =  filter_input(INPUT_POST, 'observacao_produto', FILTER_SAN
 $result_produto = "INSERT INTO armazenamento (nome_produto, quantidade_produto, validade_produto, entrega_produto, observacao_produto) VALUES ('$nome_produto', '$quantidade_produto', '$validade_produto', '$entrega_produto', '$observacao_produto')";
 $resultado_produto = mysqli_query($conexaoMysqli, $result_produto);
 
+//Se der certo o cadastro do produto, vai emprimir uma mensagem de sucesso e realocar o usuario para a area privada...
 if(mysqli_insert_id($conexaoMysqli)){
     $_SESSION['msg'] = "<p style='color:green;'>Produto com o nome de: <strong style='color:black'>".       $nome_produto . "</strong> foi cadastrado com sucesso!</p>" . $tabela;
 
     header("Location: areaPrivada.php");
+//Se der erro na hora de cadastrar o produto, vai imprimir uma mensagem de erro e realocar a pessoa para a area privada...
 } else{
     $_SESSION['msg'] ="<p style='color:red;'>Produto não foi cadastrado com sucesso!</p>";
     header("Location: areaPrivada.php");

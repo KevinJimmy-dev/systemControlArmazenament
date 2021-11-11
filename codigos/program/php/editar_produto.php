@@ -25,9 +25,11 @@ $linha_produto = mysqli_fetch_assoc($resultado_produto); // variavel que fez um 
 </head>
 
 <body>
+    <a href="areaPrivada.php">Voltar</a>
     <h1>Editar Produto</h1>
-    <?php 
-    if(isset($_SESSION['msg'])){ //msg se
+    
+    <?php
+    if (isset($_SESSION['msg'])) { //msg se
         echo $_SESSION['msg'];    //deu certo
         unset($_SESSION['msg']);   //ou nao
     }
@@ -41,16 +43,25 @@ $linha_produto = mysqli_fetch_assoc($resultado_produto); // variavel que fez um 
         <label>Quantidade: </label>
         <input type="number" name="quantidade_produto" value="<?php echo $linha_produto['quantidade_produto']; ?>"><br><br>
 
-        <label>Data de Validade: </label>
-        <input type="date" name="validade_produto" value="<?php echo $linha_produto['validade_produto']; ?>"><br><br>
-
         <label>Data de entrega: </label>
         <input type="date" name="entrega_produto" value="<?php echo $linha_produto['entrega_produto']; ?>"><br><br>
 
+        <label>Data de Validade: </label>
+        <input type="date" name="validade_produto" value="<?php echo $linha_produto['validade_produto']; ?>"><br><br>
+
         <label>Observação: </label>
         <input type="text" name="observacao_produto" value="<?php echo $linha_produto['observacao_produto']; ?>"><br><br>
-        
-        <input type="submit" value="EDITAR">
+
+        <?php
+        $comparar_produto = "SELECT * WHERE id_produto = '$id_produto', nome_produto = '$nome_produto', quantidade_produto = '$quantidade_produto', entrega_produto = '$entrega_produto', validade_produto = '$validade_produto', observacao_produto = '$observacao_produto'";
+
+
+        if($id_produto or $nome_produto or $quantidade_produto or $entrega_produto or $validade_produto or $observacao_produto == $comparar_produto){
+            echo "<input type='submit' value='SALVAR' disabled>";
+        } else{
+            echo "<input type='submit' value='SALVAR'>";
+        }
+        ?>
     </form>
 
 </body>
