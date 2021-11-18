@@ -14,7 +14,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema db_fineCrew
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `db_fineCrew` DEFAULT CHARACTER SET utf8 ;
+CREATE DATABASE IF NOT EXISTS `db_fineCrew` DEFAULT CHARACTER SET utf8 ;
 USE `db_fineCrew` ;
 
 -- -----------------------------------------------------
