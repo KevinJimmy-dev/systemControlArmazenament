@@ -9,6 +9,7 @@ USE `db_fineCrew` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_fineCrew`.`usuarios` (
   `id_usuario` INT NOT NULL AUTO_INCREMENT,
+  `nome_usuario` VARCHAR(75) NOT NULL,
   `username_usuario` VARCHAR(75) NOT NULL,
   `senha_usuario` VARCHAR(75) NOT NULL,
   `nivel_usuario` INT NOT NULL,
