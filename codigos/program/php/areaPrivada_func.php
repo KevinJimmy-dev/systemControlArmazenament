@@ -5,8 +5,8 @@ session_start(); //inicia a sessão...
 if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir um id_usuario
     header("location: ../../login/php/login.php"); // vai mandar ele devolta para a página de login...
     exit; //para a execução, do codigo restante...
-} else if($_SESSION['nivel_usuario'] != 1){
-    header("location: areaPrivada_func.php");
+} else if($_SESSION['nivel_usuario'] != 0){
+    header("location: areaPrivada.php");
 }
 
 $consulta = "SELECT * FROM produto"; //variavel que vai consultar o banco de dados...
@@ -33,7 +33,6 @@ $con = $conexaoMysqli->query($consulta) or die($conexaoMysqli->error); //vai faz
         <a href="cadastrar_produto.php">Cadastrar Produto</a><br><!-- botão para cadastrar o produto -->
         <a href="requisicao.php">Requisição</a><br>
         <a href="pesquisar_produto.php">Pesquisar Produto</a><br>
-        <a href="cadastrar_usuario.php">Cadastrar funcionário(a)</a><br><br>
 
         <h1>Tabela de Produtos</h1>
         <br>

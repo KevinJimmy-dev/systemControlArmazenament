@@ -7,7 +7,7 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
     exit; //para a execução, do codigo restante...
 }
 
-$consulta = "SELECT * FROM armazenamento"; //varaivel que vai consultar o banco de dados...
+$consulta = "SELECT * FROM produto"; //varaivel que vai consultar o banco de dados...
 $con = $conexaoMysqli->query($consulta) or die($conexaoMysqli->error); //vai fazer a conexao com outra variavel, caso der errado, vai matar a conexao...
 
 ?>
@@ -26,8 +26,6 @@ $con = $conexaoMysqli->query($consulta) or die($conexaoMysqli->error); //vai faz
 
 <body>
     <div class="container">
-        <a href="sair.php">Sair</a><br> <!-- vai ser um botão para deslogar -->
-        <a href="cadastrar_produto.php">Cadastrar Produto</a><br> <!-- botão para cadastrar o produto -->
         <a href="areaPrivada.php">Voltar</a><br><br>
 
         <h1>Pesquisar produto</h1>
@@ -45,7 +43,7 @@ $con = $conexaoMysqli->query($consulta) or die($conexaoMysqli->error); //vai faz
         //Codigos para pesquisar o produto...
         $pesquisarProduto = filter_input(INPUT_POST, 'pesquisarProduto', FILTER_SANITIZE_STRING);
         $nome_produto = filter_input(INPUT_POST, 'nome_produto', FILTER_SANITIZE_STRING);
-        $result_produto = "SELECT * FROM armazenamento WHERE nome_produto LIKE '%$nome_produto%'";
+        $result_produto = "SELECT * FROM produto WHERE nome_produto LIKE '%$nome_produto%'";
         $resultado_produto = mysqli_query($conexaoMysqli, $result_produto);
 
         //Se a variavel esta definida, vai chamar os codigos para pesquisar...

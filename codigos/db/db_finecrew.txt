@@ -1,7 +1,3 @@
-CREATE DATABASE IF NOT EXISTS bd_finecrew;
-
-USE bd_finecrew;
-
 CREATE TABLE `usuarios` (
 	`id_usuario` INT NOT NULL AUTO_INCREMENT,
 	`username_usuario` varchar(75) NOT NULL,
@@ -33,7 +29,7 @@ CREATE TABLE `categorias_de_produto` (
 
 CREATE TABLE `requisicao` (
 	`id_requisicao` INT NOT NULL AUTO_INCREMENT,
-	`data_requisicao` DATETIME NOT NULL,
+	`data_requisicao` DATETIME NOT NULL AUTO_INCREMENT,
 	`id_usuario` INT NOT NULL,
 	`id_produto` INT NOT NULL,
 	PRIMARY KEY (`id_requisicao`)
@@ -48,3 +44,6 @@ ALTER TABLE `categorias_de_produto` ADD CONSTRAINT `categorias_de_produto_fk1` F
 ALTER TABLE `requisicao` ADD CONSTRAINT `requisicao_fk0` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios`(`id_usuario`);
 
 ALTER TABLE `requisicao` ADD CONSTRAINT `requisicao_fk1` FOREIGN KEY (`id_produto`) REFERENCES `produto`(`id_produto`);
+
+
+
