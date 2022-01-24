@@ -1,4 +1,5 @@
 <?php 
+//Página para cadastrar um funcionário
 include("conexao.php");
 require_once("../../login/php/usuarios.php");
 $u = new Usuario;
@@ -24,8 +25,8 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
 </head>
 
 <body>
-    <a href="areaPrivada.php">Voltar</a>
-    <h1>Cadastrar Usuário</h1>
+    <a href="exibir_func.php">Voltar</a>
+    <h1>Cadastrar Funcionário</h1>
 
     <?php
     if (isset($_SESSION['msg'])) {
@@ -35,22 +36,17 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
     ?>
 
     <form method="POST" action="">
-        <label>Nome do funcionário(a): </label>
-        <input type="text" name="nome_usuario" placeholder="Digite o nome do funcionário(a)" maxlength="75"><br><br>
+        <label>Nome do funcionário(a): </label> <abbr title="Campo obrigatório">*</abbr>
+        <input type="text" required name="nome_usuario" placeholder="Digite o nome do funcionário(a)" maxlength="75"><br><br>
 
-        <label>Username: </label>
-        <input type="text" name="username_usuario" placeholder="Digite o username" maxlength="75"><br><br>
+        <label>Nome de usuário: </label> <abbr title="Campo obrigatório">*</abbr>
+        <input type="text" required name="username_usuario" placeholder="Digite o username" maxlength="75"><br><br>
 
-        <label>Senha: </label>
-        <input type="password" name="senha_usuario" placeholder="Digite uma senha" maxlength="75"><br><br>
+        <label>Senha: </label> <abbr title="Campo obrigatório">*</abbr>
+        <input type="password" required name="senha_usuario" placeholder="Digite uma senha" maxlength="75"><br><br>
 
-        <label>Confirme a senha: </label>
-        <input type="password" name="confSenha_usuario" placeholder="Confirme a senha" maxlength="75"><br><br>
-
-        <!-- <label>Nivel do usúario: </label>
-        <select name="nivel_usuario">
-            <option value="1">1 - Funcionário(a)</option>
-        </select><br><br> -->
+        <label>Confirme a senha: </label> <abbr title="Campo obrigatório">*</abbr>
+        <input type="password" required name="confSenha_usuario" placeholder="Confirme a senha" maxlength="75"><br><br>
 
         <input type="submit" value="CADASTRAR">
     </form>

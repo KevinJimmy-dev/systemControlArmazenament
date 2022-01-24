@@ -1,3 +1,8 @@
+<!-- Página de login -->
+<?php
+require_once 'usuarios.php'; //chamando o arquivo usuarios.php...
+$u = new Usuario; //adiciona uma nova classe...
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -20,7 +25,7 @@
 </head>
 
 <body>
-    <!-- Usando uma tela de login do mdbootstrap -->
+    <!-- Tela de login -->
     <section class="h-100 gradient-form" style="background-color: #eee;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -58,18 +63,15 @@
 
                                     <!-- PHP -->
                                     <?php
-                                    require_once 'usuarios.php'; //chamando o arquivo usuarios.php...
-                                    $u = new Usuario; //adiciona uma nova classe...
-
                                     if (isset($_POST['usuario'])){ //serve para saber se uma variável está definida
                                         $usuario = addslashes($_POST['usuario']); //addslashes adiciona 
-                                        $senha = addslashes($_POST['senha']);     //uma proteção...
+                                        $senha   = addslashes($_POST['senha']);     //uma proteção...
 
                                         if (!empty($usuario) && !empty($senha)){//se as variáveis não estiverem vazias...
                                             $u->conectar("db_finecrew", "localhost", "root", ""); //conecta com o banco
                                             if ($u->msgErro == ""){ //se não apresentar nenhuma mensagem de erro...
                                                 if (!$u->logar($usuario, $senha)){ //se as informações não corresponderem...
-                                                    echo "Credenciais incorretas!";
+                                                    echo "Credenciais incorretas!"; 
                                                 }
                                             } else{ //caso existir algum erro, vai apresentar na tela...
                                                 echo "Erro: " . $u->msgErro;

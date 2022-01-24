@@ -1,5 +1,4 @@
 <?php
-
 //Arquivo com funções do login...
 
 Class Usuario{  //criando uma classe...
@@ -57,19 +56,28 @@ Class Usuario{  //criando uma classe...
             session_start(); //inicia a sessão...
             $_SESSION['id_usuario'] = $dado['id_usuario']; //_SESSION recebe o id_usuario...
 
-            $verificar = $pdo->query("SELECT * FROM usuarios"); //cria uma variável que seleciona tudo da tabela usuarios...
+            $verificar = $pdo->query("SELECT * FROM usuarios WHERE id_usuario = '$_SESSION[id_usuario]'"); //cria uma variável que seleciona tudo da tabela usuarios...
             while($linha = $verificar->fetch(PDO::FETCH_ASSOC)){//a variável $linha recebe um array da variável $verificar...
                 if($linha['id_usuario'] == $_SESSION['id_usuario']){ //se a variável $linha for igual ao id da sessão...
-                    $nivel = $linha['nivel_usuario']; //variável $nivel recebe o nivel de usuário...
+                    $nivel  = $linha['nivel_usuario']; //variável $nivel recebe o nivel de usuário...
+                    $status = $linha['status_usuario'];
 
-                    switch ($nivel){//seleciona um dos casos...
+                    switch ($nivel && $status){//seleciona um dos casos...
 
-                        case '0'://Funcionário(a)
+                        case ($nivel == 0 && $status == 1)://Funcionário(a)
                             header("location: ../../program/php/areaPrivada_func.php");
                         break;
 
-                        case '1'://Administrador
+                        case ($nivel == 1 && $status == 1)://Administrador
                             header("location: ../../program/php/areaPrivada.php");
+                        break;
+
+                        case ($nivel == 0 && $status == 0):
+                            echo "Usuário sem aceso!";
+                        break;
+
+                        case ($nivel == 1 && $status == 0):
+                            echo "Administrador sem acesso!";
                         break;
 
                         default://Caso não for nenhum dos dois...
@@ -78,7 +86,8 @@ Class Usuario{  //criando uma classe...
                         break;
                     }
 
-                    $_SESSION['nivel_usuario'] = $nivel;
+                    $_SESSION['nivel_usuario']  = $nivel;
+                    $_SESSION['status_usuario'] = $status;
                 }
             }
 

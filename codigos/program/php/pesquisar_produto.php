@@ -1,4 +1,5 @@
 <?php
+//Página para pesquisar produtos
 include("conexao.php");
 
 session_start(); //inicia a sessão...
@@ -65,18 +66,25 @@ $con = $conexaoMysqli->query($consulta) or die($conexaoMysqli->error); //vai faz
                             <td>Entrega</td>
                             <td>Validade</td>
                             <td>Observação</td>
+                            <td>Categoria</td>
                             <td>Ações</td>
                         </tr>
 
                         <?php
                         //Imprimindo a tabela...
                         while ($dados = mysqli_fetch_assoc($resultado_produto)) {
+                            //para emprimir o nome da categoria...
+                            $busca_categoria = "SELECT nome_categoria FROM categorias_de_produtos WHERE id_categoria = '$dados[id_categoria]'";
+                            $buscou = $conexaoMysqli->query($busca_categoria); 
+                            $categoria = $buscou->fetch_assoc();
+
                             echo "<tr>";
                             echo "<td>" . $dados['nome_produto'] . "</td>";
                             echo "<td>" . $dados['quantidade_produto'] . "</td>";
                             echo "<td>" . date("d/m/Y", strtotime($dados['entrega_produto'])) . "</td>";
                             echo "<td>" . date("d/m/Y", strtotime($dados['validade_produto'])) . "</td>";
                             echo "<td>" . $dados['observacao_produto'] . "</td>";
+                            echo "<td>" . $categoria['nome_categoria'] . "</td>";
                             echo "<td> <a href='editar_produto.php?id_produto=" . $dados['id_produto'] . "'> EDITAR</a> | <a href='del_produto.php?id_produto=" . $dados['id_produto'] . "' data-confirm='Tem certeza de que deseja excluir o item selecionado?'> EXCLUIR </a>  </td>";
                             echo "</tr>";
                         }
@@ -97,6 +105,7 @@ $con = $conexaoMysqli->query($consulta) or die($conexaoMysqli->error); //vai faz
             unset($_SESSION['msg']);
         }
         ?>
+        
         <!-- JavaScript Bundle with Popper -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
