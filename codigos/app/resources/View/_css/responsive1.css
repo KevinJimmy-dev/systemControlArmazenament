@@ -1,0 +1,15 @@
+@media (max-width: 991px) and (max-height: 911px){
+    footer{
+        height: 479px;
+    }
+
+    .title{
+        margin-bottom: 13rem;
+    }
+}
+
+@media (max-width: 620px) and (max-height: 911px){
+    footer{
+        height: 485px;
+    }
+}
