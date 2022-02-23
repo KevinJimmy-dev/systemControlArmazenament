@@ -17,6 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+CREATE DATABASE db_finecrew;
+
+USER db_finecrew;
+
 --
 -- Banco de dados: `db_finecrew`
 --
@@ -38,7 +42,7 @@ CREATE TABLE `categorias_de_produtos` (
 
 INSERT INTO `categorias_de_produtos` (`id_categoria`, `nome_categoria`) VALUES
 (1, 'Enlatados'),
-(2, 'Verduras\r\n                                                            '),
+(2, 'Verduras'),
 (3, 'Fruta'),
 (8, 'Carne Branca'),
 (10, 'Carne Vermelha');
@@ -231,12 +235,6 @@ ALTER TABLE `controle_produto`
   ADD KEY `fk_id_controle` (`id_controle`);
 
 --
--- Índices para tabela `grupo_usuarios`
---
-ALTER TABLE `grupo_usuarios`
-  ADD PRIMARY KEY (`id_grupo`);
-
---
 -- Índices para tabela `produto`
 --
 ALTER TABLE `produto`
@@ -257,14 +255,6 @@ ALTER TABLE `requisicao_produto`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_requisicao_has_produto_requisicao1` (`id_requisicao`),
   ADD KEY `fk_id_produto` (`id_produto`);
-
---
--- Índices para tabela `usarios_grupos`
---
-ALTER TABLE `usarios_grupos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_GrupoDeUsuarios_has_usuarios_GrupoDeUsuarios1` (`id_grupo`),
-  ADD KEY `fk_GrupoDeUsuarios_has_usuarios_usuarios1` (`id_usuario`);
 
 --
 -- Índices para tabela `usuarios`
@@ -366,8 +356,3 @@ ALTER TABLE `requisicao_produto`
 ALTER TABLE `usarios_grupos`
   ADD CONSTRAINT `fk_GrupoDeUsuarios_has_usuarios_GrupoDeUsuarios1` FOREIGN KEY (`id_grupo`) REFERENCES `grupo_usuarios` (`id_grupo`),
   ADD CONSTRAINT `fk_GrupoDeUsuarios_has_usuarios_usuarios1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
