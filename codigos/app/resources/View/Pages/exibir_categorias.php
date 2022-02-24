@@ -1,13 +1,20 @@
 <?php
 //Página que exibe todas as categorias, e com funções: EDITAR | EXCLUIR
+
+//Inclui o arquivo de conexão
 include '../../../Model/Entity/conexao.php';
 
+//Inicia a sessão
 session_start();
+
+//Se não estiver logado
 if (!isset($_SESSION['id_usuario'])) {
+    //Realoca para a pagina de login
     header("location: login.php");
     exit;
 }
 
+//Paginação
 //definindo a quantidade de itens por página
 $itens_por_pagina = 10;
 //pegar página atual
@@ -47,7 +54,7 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
             <div class="brand-title">
                 <abbr title="Página Inicial">
                     <a href="funcionario.php">
-                        <img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo Layoff. Controll" width="120px">
+                        <img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px">
                     </a>
                 </abbr>
             </div>

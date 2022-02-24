@@ -1,17 +1,29 @@
 <?php
 //Página principal pro adm, depois de fazer login será encaminhado pra cá...
+
+//Inclui o arquivo de conexao
 include '../../../Model/Entity/conexao.php';
 
-session_start(); //inicia a sessão...
-if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['status_usuario'])) { //se não estiver definida, não possuir um id_usuario ou um status_usuario
-    header("location: login.php"); // vai mandar ele devolta para a página de login...
-    exit; //para a execução, do codigo restante...
+//inicia a sessão
+session_start(); 
+
+//se não estiver definida, não possuir um id_usuario ou um status_usuario
+if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['status_usuario'])){
+    //vai mandar ele devolta para a página de login
+    header("location: login.php"); 
+    exit;
+    //Se o usuario for funcionario
 } else if ($_SESSION['nivel_usuario'] != 1) {
+    //Realoca o usuario para o funcionario
     header("location: funcionario.php");
+    //Se o usuario estiver inativo
 } else if ($_SESSION['status_usuario'] != 1) {
+    //Realoca para a pagina do login
     header("location: login.php");
     exit;
 }
+
+//Paginação
 
 //definindo a quantidade de itens por página
 $itens_por_pagina = 10;
@@ -19,8 +31,9 @@ $itens_por_pagina = 10;
 @$pagina = intval($_GET['pagina']);
 $inicio = $pagina * $itens_por_pagina;
 
-$consulta = "SELECT * FROM produto LIMIT $inicio, $itens_por_pagina"; //variavel que vai consultar o banco de dados...
-$con = $conexaoMysqli->query($consulta) or die($conexaoMysqli->error); //vai fazer a conexao com outra variavel, caso der errado, vai matar a conexao...
+//variavel que vai consultar o banco de dados
+$consulta = "SELECT * FROM produto LIMIT $inicio, $itens_por_pagina"; 
+$con = $conexaoMysqli->query($consulta) or die($conexaoMysqli->error);
 $num = $con->num_rows;
 
 //pega a quantidade total de itens no banco de dados
@@ -50,7 +63,7 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
         <nav class="navbar navbar-expand-lg">
             <div class="brand-title">
                 <abbr title="Página Inicial">
-                    <a href="administrador.php?pagina=0"><img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo Layoff. Controll" width="120px"></a>
+                    <a href="administrador.php?pagina=0"><img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px"></a>
                 </abbr>
             </div>
 
@@ -114,7 +127,7 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
 
         <div class="msg">
             <?php
-            //Caso ocorrer algum erro, vai imprimir uma msg nessa variavel...
+            //Caso ocorrer algum erro, vai imprimir uma msg nessa variavel
             if (isset($_SESSION['msg'])) {
                 echo $_SESSION['msg'];
                 unset($_SESSION['msg']);

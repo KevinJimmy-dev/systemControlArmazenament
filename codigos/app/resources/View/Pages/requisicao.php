@@ -1,9 +1,14 @@
 <?php
 //Página que fará a requisição
-session_start(); //inicia a sessão...
-if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir um id_usuario
-    header("location: login.php"); // vai mandar ele devolta para a página de login...
-    exit; //para a execução, do codigo restante...
+
+//inicia a sessão
+session_start();
+
+//Se não estiver logado
+if (!isset($_SESSION['id_usuario'])) { 
+    //Vai realocar ele devolta para a página de login
+    header("location: login.php"); 
+    exit;
 }
 ?>
 
@@ -30,7 +35,7 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
             <div class="brand-title">
                 <a href="administrador.php">
                     <abbr title="Página Inicial">
-                        <img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo" width="120px">
+                        <img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px">
                     </abbr>
                 </a>
             </div>

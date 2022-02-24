@@ -1,15 +1,24 @@
 <?php
 //Página que exibe todos os funcionários, com funções: EDITAR e EXCLUIR
+
+//Inclui o arquivo de conexão
 include '../../../Model/Entity/conexao.php';
 
+//Inicia sessão
 session_start();
+
+//Se não estiver logado
 if (!isset($_SESSION['id_usuario'])) {
+    //Realoca para o login
     header("location: login.php");
     exit;
+//Se for um funcionario
 } else if ($_SESSION['nivel_usuario'] != 1) {
+    //Realoca para para a pagina funcionario
     header("location: funcionario.php");
 }
 
+//Paginação
 //definindo a quantidade de itens por página
 $itens_por_pagina = 10;
 //pegar página atual
@@ -50,7 +59,7 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
             <div class="brand-title">
                 <a href="administrador.php">
                     <abbr title="Página Inicial">
-                        <img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo" width="120px">
+                        <img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px">
                     </abbr>
                 </a>
             </div>
@@ -110,12 +119,15 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
             <h1>Exibir Funcionários</h1>
         </div>
 
-        <?php
-        if (isset($_SESSION['msg'])) {
-            echo $_SESSION['msg'];
-            unset($_SESSION['msg']);
-        }
-        ?>
+        <div class="msg">
+            <?php
+            //Caso ocorrer algum erro, vai imprimir uma msg nessa variavel
+            if (isset($_SESSION['msg'])) {
+                echo $_SESSION['msg'];
+                unset($_SESSION['msg']);
+            }
+            ?>
+        </div>
 
         <!-- Todos os funcionários estão sendo exibidos dentro de uma tabela -->
         <div class="container">

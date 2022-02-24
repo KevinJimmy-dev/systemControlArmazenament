@@ -1,8 +1,13 @@
 <?php
 //Página para cadastrar uma categoria
+
+//Inclui o arquivo de conexão
 include '../../../Model/Entity/conexao.php';
 
+//Inicia sessão
 session_start();
+
+//Se não estiver logado
 if (!isset($_SESSION['id_usuario'])) {
     header("location: login.php");
     exit;
@@ -39,7 +44,7 @@ if (!isset($_SESSION['id_usuario'])) {
             <div class="brand-title">
                 <abbr title="Página Inicial">
                     <a href="funcionario.php">
-                        <img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo Layoff. Controll" width="120px">
+                        <img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px">
                     </a>
                 </abbr>
             </div>
@@ -108,6 +113,7 @@ if (!isset($_SESSION['id_usuario'])) {
             }
             ?>
         </div>
+        
         <div class="container w-25 p-3">
             <form method="POST" action="../../../Model/Entity/cad_categoria.php">
                 <div class="form-floating mb-3">

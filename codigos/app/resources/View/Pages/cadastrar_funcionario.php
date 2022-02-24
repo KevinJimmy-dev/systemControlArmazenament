@@ -1,15 +1,24 @@
 <?php
 //Página para cadastrar um funcionário
+
+//Inclui o arquivo de conexão e o de usuarios
 include '../../../Model/Entity/conexao.php';
 require_once '../../../Controller/Pages/usuarios.php';
 
+//Chama a classe
 $u = new Usuario;
 
-session_start(); //inicia a sessão...
-if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir um id_usuario
-    header("location: login.php"); // vai mandar ele devolta para a página de login...
-    exit; //para a execução, do codigo restante...
+//Inicia a sessão
+session_start();
+
+//Se não estiver definida, não possuir um id_usuario
+if (!isset($_SESSION['id_usuario'])) { 
+    //Vai mandar ele devolta para a página de login
+    header("location: login.php"); 
+    exit;
+//Se o usuario for um funcionario
 } else if ($_SESSION['nivel_usuario'] != 1) {
+    //Realoca para a pagina de funcionario
     header("location: funcionario.php");
 }
 ?>
@@ -36,7 +45,7 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
             <div class="brand-title">
                 <a href="administrador.php">
                     <abbr title="Página Inicial">
-                        <img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo" width="120px">
+                        <img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px">
                     </abbr>
                 </a>
             </div>
@@ -96,12 +105,15 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
             <h1>Cadastrar Funcionário</h1>
         </div>
 
-        <?php
-        if (isset($_SESSION['msg'])) {
-            echo $_SESSION['msg'];
-            unset($_SESSION['msg']);
-        }
-        ?>
+        <div class="msg">
+            <?php
+            //Caso ocorrer algum erro, vai imprimir uma msg nessa variavel
+            if (isset($_SESSION['msg'])) {
+                echo $_SESSION['msg'];
+                unset($_SESSION['msg']);
+            }
+            ?>
+        </div>
 
         <div class="container w-50 p-3 text-center">
             <form method="POST" action="">
@@ -144,28 +156,43 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
         <?php
         //Verificar se clicou no botão
         if (isset($_POST['nome_usuario'])) {
+            //Variaveis que recebem os valores
             $nome_usuario = addslashes($_POST['nome_usuario']);
             $username_usuario = addslashes($_POST['username_usuario']);
             $senha_usuario = addslashes($_POST['senha_usuario']);
             $confSenha_usuario = addslashes($_POST['confSenha_usuario']);
+
             //Verificar se está preenchido
             if (!empty($nome_usuario) && !empty($username_usuario) && !empty($senha_usuario) && !empty($confSenha_usuario)) {
+                //Conecta no banco
                 $u->conectar("db_finecrew", "localhost", "root", "");
-                if ($u->msgErro == "") { // se está vazia, está tudo certo
+                //Se está vazia, está tudo certo
+                if ($u->msgErro == "") {
+                    //Se as senhas corresponderem 
                     if ($senha_usuario == $confSenha_usuario) {
+                        //Cadastra o usuario
                         if ($u->cadastrar($nome_usuario, $username_usuario, $senha_usuario)) {
-                            $_SESSION['msg'] = "<script>alert('Cadastrado com sucesso!');</script>";
-                            header("location: funcionario.php");
+                            //Exibe um alert e realoca o usuario para o funcionario
+                            echo "<script>alert('Cadastrado com sucesso!');</script>";
+                            echo "<script>window.location.href = 'funcionario.php';</script>";
+                        //Se já existir
                         } else {
+                            //Exibe um alert
                             echo "<script>alert('Nome de usuário já cadastrado!');</script>";
                         }
+                    //Se as senhas não corresponderem
                     } else {
+                        //Exibe um alert
                         echo "<script>alert('Senha e confirmar senha não correspodem!');</script>";
                     }
+                //Se tiver um erro
                 } else {
+                    //Exibe uma mensagem de erro
                     echo "Erro: " . $u->msgErro;
                 }
+            //Se todos os campos não estiverem preenchidos
             } else {
+                //Exibe um alert
                 echo "<script>alert('Preencha todos os campos!');</script>";
             }
         }

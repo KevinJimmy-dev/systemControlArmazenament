@@ -1,19 +1,32 @@
 <?php
 //Página principal dos funcionários, assim que sair do login, serão redirecionados pra cá...
+
+//Inclui a conexão
 include '../../../Model/Entity/conexao.php';
 
-session_start(); //inicia a sessão...
-if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['status_usuario'])) { //se não estiver definida, não possuir um id_usuario ou um status_usuario
-    header("location: login.php"); // vai mandar ele devolta para a página de login...
-    exit; //para a execução, do codigo restante...
+//inicia a sessão
+session_start(); 
+
+//Se não estiver logado
+if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['status_usuario'])) {
+    //Realoca para o login
+    header("location: login.php");
+    exit;
+
+//Se for um administrador
 } else if ($_SESSION['nivel_usuario'] != 0) {
+    //Realoca para a pagina de administrador
     header("location: administrador.php");
+
+//Se estiver logado
 } else if ($_SESSION['status_usuario'] != 1) {
+    //Exibe um alert e realoca para a pagina de login
     echo "<script>alert('Usuário sem acesso!');</script>";
     header("location: login.php");
     exit;
 }
 
+//Paginação
 //definindo a quantidade de itens por página
 $itens_por_pagina = 10;
 //pegar página atual
@@ -52,7 +65,7 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
         <nav class="navbar">
             <div class="brand-title">
                 <abbr title="Página Inicial">
-                    <a href="funcionario.php?pagina=0"><img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo Layoff. Controll" width="120px"></a>
+                    <a href="funcionario.php?pagina=0"><img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px"></a>
                 </abbr>
             </div>
             <a href="#" class="toggle-button">
@@ -143,6 +156,7 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
                         $busca_categoria = "SELECT nome_categoria FROM categorias_de_produtos WHERE id_categoria = '$dados[id_categoria]'";
                         $buscou = $conexaoMysqli->query($busca_categoria);
                         $categoria = $buscou->fetch_assoc();
+
                         echo "<tr>";
                         echo "<td class='left-align'>" . $dados['nome_produto'] . "</td>";
                         $search = ",";
@@ -189,7 +203,7 @@ $num_paginas = ceil($num_total / $itens_por_pagina);
                                             </div>
                                         </div>
                                     </form>
-                             </td>"; //botões de editar e excluir
+                             </td>";
                         echo "</tr>";
                     }
                     ?>

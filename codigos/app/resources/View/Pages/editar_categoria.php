@@ -1,9 +1,13 @@
 <?php
 //Página para editar uma categoria
+
+//Inclui o arquivo de conexão
 include_once '../../../Model/Entity/conexao.php';
 
 //Inicia uma sessão
 session_start();
+
+//Se não estiver logado
 if (!isset($_SESSION['id_usuario'])) {
     header("location: login.php");
     exit;
@@ -38,7 +42,7 @@ $linha_categoria     = mysqli_fetch_assoc($resultado_categoria);
             <div class="brand-title">
                 <abbr title="Página Inicial">
                     <a href="funcionario.php">
-                        <img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo Layoff. Controll" width="120px">
+                        <img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px">
                     </a>
                 </abbr>
             </div>
@@ -98,12 +102,15 @@ $linha_categoria     = mysqli_fetch_assoc($resultado_categoria);
             <h1>Editar Categoria</h1>
         </div>
 
-        <?php
-        if (isset($_SESSION['msg'])) { //msg se
-            echo $_SESSION['msg'];    //deu certo
-            unset($_SESSION['msg']);   //ou nao
-        }
-        ?>
+        <div class="msg">
+            <?php
+            //Caso ocorrer algum erro, vai imprimir uma msg nessa variavel
+            if (isset($_SESSION['msg'])) {
+                echo $_SESSION['msg'];
+                unset($_SESSION['msg']);
+            }
+            ?>
+        </div>
 
         <div class="container w-50   p-3">
             <form method="POST" action="edit_categoria.php">
@@ -168,23 +175,25 @@ $linha_categoria     = mysqli_fetch_assoc($resultado_categoria);
     ?>
     <!-- Função que compara os valores antigos e os novos -->
     <script>
+        //Função para ativar/desativar o botao
         function comparar() {
-            //Variáveis que possuem os novos valores (caso houver)
+            //Variáveis que possuem os valores
             var categoria_novo = document.getElementById('nome').value;
-            //Colocando o botao em uma variavel
             var button = document.getElementById('botao');
             var abbr = document.getElementById('abbr');
-            //Estrutura de decisão caso houver alguma modificação em um dos campos
+
+            //Caso houver alguma modificação em um dos campos
             if (categoria_or === categoria_novo) {
                 //Se não, o botão continua desativado
                 button.setAttribute('disabled', 'disabled');
                 abbr.setAttribute('title', 'Faça alguma mudança para habilitar o botão...');
-                //Se o usuario deixar o campo vazio
+            //Se o usuario deixar o campo vazio
             } else if (categoria_novo === "") {
                 button.setAttribute('disabled', 'disabled');
                 abbr.setAttribute('title', 'Não deixe o campo vazio!');
+            //Se mudar
             } else {
-                //Se sim, o botão é ativado
+                //O botão é ativado
                 button.removeAttribute('disabled');
                 abbr.setAttribute('title', 'Clique para salvar a alteração');
             }

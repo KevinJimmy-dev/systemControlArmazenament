@@ -1,18 +1,24 @@
 <?php
 //Página para editar um produto
+
+//Inclui o arquivo de conexao
 include_once '../../../Model/Entity/conexao.php';
 
-session_start(); //inicia a sessão...
-if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir um id_usuario
-    header("location: login.php"); // vai mandar ele devolta para a página de login...
-    exit; //para a execução, do codigo restante...
+//Inicia a sessão
+session_start();
+
+//Se não estiver logado
+if (!isset($_SESSION['id_usuario'])) {
+    //Realoca para a página de login
+    header("location: login.php");
+    exit;
 }
 
-$id_produto = filter_input(INPUT_GET, 'id_produto', FILTER_SANITIZE_NUMBER_INT); //variavel armazenando o id com um filtro...
-$result_produto = "SELECT * FROM produto WHERE id_produto = '$id_produto'"; //variavel que possui o id do produto selecionado para editar...
-$resultado_produto = mysqli_query($conexaoMysqli, $result_produto); //variavel que faz a conexão...
-$linha_produto = mysqli_fetch_assoc($resultado_produto); // variavel que fez um array, que armazena os itens dentro dela...
-
+//Variavel que recebe o id do produto e faz um select. Depois um array
+$id_produto = filter_input(INPUT_GET, 'id_produto', FILTER_SANITIZE_NUMBER_INT);
+$result_produto = "SELECT * FROM produto WHERE id_produto = '$id_produto'";
+$resultado_produto = mysqli_query($conexaoMysqli, $result_produto);
+$linha_produto = mysqli_fetch_assoc($resultado_produto);
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +43,7 @@ $linha_produto = mysqli_fetch_assoc($resultado_produto); // variavel que fez um 
             <div class="brand-title">
                 <abbr title="Página Inicial">
                     <a href="funcionario.php">
-                        <img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo Layoff. Controll" width="120px">
+                        <img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px">
                     </a>
                 </abbr>
             </div>
@@ -97,12 +103,15 @@ $linha_produto = mysqli_fetch_assoc($resultado_produto); // variavel que fez um 
             <h1>Editar Produto</h1>
         </div>
 
-        <?php
-        if (isset($_SESSION['msg'])) { //msg se
-            echo $_SESSION['msg'];    //deu certo
-            unset($_SESSION['msg']);   //ou nao
-        }
-        ?>
+        <div class="msg">
+            <?php
+            //Caso ocorrer algum erro, vai imprimir uma msg nessa variavel
+            if (isset($_SESSION['msg'])) {
+                echo $_SESSION['msg'];
+                unset($_SESSION['msg']);
+            }
+            ?>
+        </div>
 
         <div class="container w-50 p-3">
             <form method="POST" action="../../../Model/Entity/edit_produto.php" name="myForm" id="form">
@@ -142,13 +151,16 @@ $linha_produto = mysqli_fetch_assoc($resultado_produto); // variavel que fez um 
                     <select name="categoria_produto" class="form-select" id="categoria" onmouseleave="comparar()">
                         <!-- Option com PHP que mostrará todas as categorias que possui, e já virá selecionada a que o produto possui atualmente -->
                         <?php
-                        //Comando MYSQL e execução dele
+                        //Busca e execução
                         $result_categoria = "SELECT * FROM categorias_de_produtos";
                         $resultado_categoria = mysqli_query($conexaoMysqli, $result_categoria);
-                        //Jogará os resultados dentro de uma variável, que será um array, e enquanto tiver resultados nela
+
+                        //Estrutura de repetição, se der certo a formação do array
                         while ($row_categoria = mysqli_fetch_assoc($resultado_categoria)) { ?>
+                            <!-- Se for igual, imprimi como selected -->
                             <?php if ($row_categoria['id_categoria'] == $linha_produto['id_categoria']) {
                                 echo "<option value='" . $row_categoria['id_categoria'] . "' selected>" . $row_categoria['nome_categoria'] . "</option>";
+                            //Se não for igual, impimi normal mesmo
                             } else { ?>
                                 <option value="<?php echo $row_categoria['id_categoria'] ?>">
                                     <?php echo $row_categoria['nome_categoria']; ?>
@@ -167,9 +179,6 @@ $linha_produto = mysqli_fetch_assoc($resultado_produto); // variavel que fez um 
                         </abbr>
                     </div>
                 </div>
-
-
-
             </form>
         </div>
     </main>
@@ -209,6 +218,7 @@ $linha_produto = mysqli_fetch_assoc($resultado_produto); // variavel que fez um 
     <!-- Para ativar o button caso houver alguma alteração -->
     <!-- Pegando os valores originais, com Javascript dentro do PHP...-->
     <?php
+    //Pega os antigos valores para comparar depois
     $script =
         "<script>
                     var produto_or    = '$linha_produto[nome_produto]';
@@ -233,17 +243,22 @@ $linha_produto = mysqli_fetch_assoc($resultado_produto); // variavel que fez um 
             //Colocando o botao em uma variavel
             var button = document.getElementById('botao');
             var abbr = document.getElementById('abbr');
-            //Estrutura de decisão caso houver alguma modificação em um dos campos
+
+            //Se não houver alguma modificação em um dos campos
             if (produto_or === produto_novo && quantidade_or === quantidade_novo && entrega_or === entrega_novo && validade_or === validade_novo && observacao_or === observacao_novo && categoria_or === categoria_novo) {
-                //Se não, o botão continua desativado
+                //o botão continua desativado
                 button.setAttribute('disabled', 'disabled');
                 abbr.setAttribute('title', 'Altere um dos campos...');
+
+            //Se estiver vazias
             } else if (produto_novo === "" || quantidade_novo === "" || entrega_novo === "" || validade_novo === "" || categoria_novo === "") {
                 //Se o usuário deixar algum campo obrigatório vazio
                 button.setAttribute('disabled', 'disabled');
                 abbr.setAttribute('title', 'Não deixe nenhum campo obrigatório vazio!');
+
+            //Se tiver mudanças 
             } else {
-                //Se sim, o botão é ativado
+                //O botão é ativado
                 button.removeAttribute('disabled');
                 abbr.setAttribute('title', 'Clique para salvar as alterações...');
             }

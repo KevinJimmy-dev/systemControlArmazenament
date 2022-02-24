@@ -1,3 +1,5 @@
+/* CSS usado em todas as páginas */
+
 *{
     box-sizing: border-box;
 }
@@ -34,7 +36,8 @@ html{
 }
 
 .img-logo{
-    margin-top: -10px;
+    margin-top: -35px;
+    margin-bottom: -30px;
     cursor: pointer;
 }
 
@@ -296,10 +299,6 @@ footer .cont p{
     color: #999;
 }
 
-/* footer .cont .links{
-
-} */
-
 footer .cont .links ul li{
     list-style: none;
 }
@@ -342,7 +341,12 @@ footer .cont .contato .info li a:hover{
     color: #fff;
 }
 
+.test:hover{
+    color: #fff !important;
+}
+
 /* Responsivo footer */
+
 @media (max-width: 990px){
     footer{
         position: relative;
@@ -453,12 +457,4 @@ footer .cont .contato .info li a:hover{
     footer{
         height: 685px;
     }
-}
-
-
-
-
-
-.test:hover{
-    color: #fff !important;
 }

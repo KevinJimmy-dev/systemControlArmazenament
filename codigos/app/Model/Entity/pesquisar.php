@@ -1,13 +1,18 @@
 <?php
-//Página para pesquisar produtos
+//Página quando pesquisar
+
+//Inclui o arquivo de conexão
 include 'conexao.php';
 
-session_start(); //inicia a sessão...
-if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir um id_usuario
-    header("location: login.php"); // vai mandar ele devolta para a página de login...
-    exit; //para a execução, do codigo restante...
-}
+//Inicia a sessão
+session_start();
 
+//Se não possuir um id_usuario
+if (!isset($_SESSION['id_usuario'])) { 
+    //Vai mandar ele devolta para a página de login
+    header("location: login.php"); 
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +37,7 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
             <div class="brand-title">
                 <a href="../../resources/View/Pages/funcionario.php">
                     <abbr title="Página Inicial">
-                        <img class="img-logo" src="../../resources/View/imgs/logo-layoff.png" alt="Logo Layoff. Controll" width="120px">
+                        <img class="img-logo" src="../../resources/View/imgs/logo-storage1.png" alt="Logo Layoff. Controll" width="120px">
                     </abbr>
                 </a>
             </div>
@@ -112,32 +117,36 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
         </div>
 
         <?php
-        //definindo a quantidade de itens por página
+        //Paginação
+        //Definindo a quantidade de itens por página
         $itens_por_pagina = 10;
 
-        //pegar página atual
+        //Pegar página atual
         @$pagina = intval($_GET['pagina']);
         $inicio = $pagina * $itens_por_pagina;
 
-        //Codigos para pesquisar o produto...
+        //Variavel que recebe o valor da variavel 
         $nome_produto     = filter_input(INPUT_GET, 'nome_produto', FILTER_SANITIZE_STRING);
 
+        //Busca no banco o produto
         $result_produto    = "SELECT * FROM produto WHERE nome_produto LIKE '%$nome_produto%' LIMIT $inicio, $itens_por_pagina";
         $resultado_produto = mysqli_query($conexaoMysqli, $result_produto);
         $num = $resultado_produto->num_rows;
 
-        //pega a quantidade total de itens no banco de dados
+        //Pega a quantidade total de itens no banco de dados
         $num_total = $conexaoMysqli->query("SELECT * FROM produto WHERE nome_produto LIKE '%$nome_produto%'")->num_rows;
 
         //definir numero de paginas
         $num_paginas = ceil($num_total / $itens_por_pagina);
 
-        //Se a variavel esta definida, vai chamar os codigos para pesquisar...
+        //Se possuir um valor
         if (isset($nome_produto)) {
-            //Se a variavel esta está vazia...
+            //Se a variavel está vazia...
             if (empty($nome_produto)) {
-                //Vai emprimir um alert, e a tabela na tela do usuario...
+                //Vai emprimir um alert
                 echo "<script>alert('Preencha o campo para pesquisar!');</script>";
+
+            //Se não estiver vazia
             } else {
                 //Se a pesquisa der certo...
                 if (($resultado_produto) and ($resultado_produto->num_rows != 0)) {
@@ -227,13 +236,16 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
                                         <a href="pesquisar.php?pagina=0&nome_produto=<?php echo $nome_produto; ?>&pesquisarProduto=" class="page-link">Primeira</a>
                                     </li>
                                     <?php
+                                    //Estrutura de repetição da paginação
                                     for ($i = 0; $i < $num_paginas; $i++) {
+                                        //Se $i for igual $num_paginas
                                         if ($pagina == $i) {
                                             echo "<li class='page-item active'>
                                                     <a class='page-link' href='pesquisar.php?pagina=$i&nome_produto=$nome_produto&pesquisarProduto='>
                                                         " . $i + 1 . "
                                                     </a>
                                                 </li>";
+                                        //Se não for
                                         } else {
                                             echo "<li class='page-item'>
                                                         <a class='page-link' href='pesquisar.php?pagina=$i&nome_produto=$nome_produto&pesquisarProduto='>
@@ -249,6 +261,7 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
                             </nav>
 
                 <?php
+                //Se não tiver nenhum resultado na pesquisa
                 } else {
                     echo "<script>alert('Este produto ainda não foi cadastrado, ou nome está incorreto!');</script>";
                 }

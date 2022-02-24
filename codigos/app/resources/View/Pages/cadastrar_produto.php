@@ -30,7 +30,7 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
             <div class="brand-title">
                 <a href="administrador.php">
                     <abbr title="Página Inicial">
-                        <img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo" width="120px">
+                        <img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px">
                     </abbr>
                 </a>
             </div>
@@ -90,12 +90,15 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
             <h1>Cadastrar produto</h1>
         </div>
 
-        <?php
-        if (isset($_SESSION['msg'])) {
-            echo $_SESSION['msg'];
-            unset($_SESSION['msg']);
-        }
-        ?>
+        <div class="msg">
+            <?php
+            //Caso ocorrer algum erro, vai imprimir uma msg nessa variavel
+            if (isset($_SESSION['msg'])) {
+                echo $_SESSION['msg'];
+                unset($_SESSION['msg']);
+            }
+            ?>
+        </div>
 
         <div class="container w-50 p-3 text-center">
             <!-- Formulario -->
@@ -232,12 +235,14 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
 
     <!-- Javascript com uma função para habilitar o botão -->
     <script>
+        //Função para ativar/desativar o botão
         function checar() {
-            var nome_produto = document.getElementById("nome").value;
-            var categoria_produto = document.getElementById("categoria").value;
+            //Variaveis recebendo os antigos valores
+            var nome_produto       = document.getElementById("nome").value;
+            var categoria_produto  = document.getElementById("categoria").value;
             var quantidade_produto = document.getElementById("quantidade").value;
-            var validade_produto = document.getElementById("validade").value;
-            var entrega_produto = document.getElementById("entrega").value;
+            var validade_produto   = document.getElementById("validade").value;
+            var entrega_produto    = document.getElementById("entrega").value;
 
             var botao = document.getElementById("botao");
             var abbr = document.getElementById("abbr");
@@ -246,19 +251,23 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
             if (nome_produto == "" && categoria_produto == "" && quantidade_produto == "" && validade_produto == "" && entrega_produto == "") {
                 botao.setAttribute('disabled', 'disabled');
                 abbr.setAttribute('title', 'Preencha os campos para cadastrar um produto!');
-                //Senão
+
+            //Se não ativa, e muda o abbr
             } else {
                 botao.removeAttribute('disabled');
                 abbr.setAttribute('title', 'Clique para cadastrar um produto!');
             }
 
+            //Se a quantidade for zero
             if (quantidade_produto == "") {
+                //Adiciona um frase de aviso
                 document.getElementById("retorno").innerHTML = '<p class=left-align>Se for <strong>Quilos</strong>, adicione uma virgula,  e pelo menos o número 1 após a virgula, para o sistema entender...</p><br>';
+
+            //Se não, nada
             } else {
                 document.getElementById("retorno").innerHTML = "";
             }
         }
-
     </script>
     <script src="../../../Controller/Pages/_js/navbar.js"></script>
     <!-- JavaScript Bundle with Popper -->

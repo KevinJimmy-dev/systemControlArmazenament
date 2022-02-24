@@ -1,8 +1,10 @@
 <!-- Página de login -->
 <?php
-require_once '../../../Controller/Pages/usuarios.php'; //chamando o arquivo usuarios.php...
+//chamando o arquivo usuarios.php
+require_once '../../../Controller/Pages/usuarios.php';
 
-$u = new Usuario; //adiciona uma nova classe...
+//Chama a classe
+$u = new Usuario; 
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +50,7 @@ $u = new Usuario; //adiciona uma nova classe...
 
                                     <div class="text-center">
                                         <!-- logo -->
-                                        <img src="../imgs/logo-layoff.png" style="width: 250px;" alt="Logo Layoff. Controll" class="mb-4">
+                                        <img src="../imgs/logo-storage1.png" style="width: 300px;" alt="Logo Storage. System" class="">
                                     </div>
 
                                     <!-- Formulario -->
@@ -75,28 +77,39 @@ $u = new Usuario; //adiciona uma nova classe...
 
                                     <!-- PHP -->
                                     <?php
-                                    if (isset($_POST['usuario'])) { //serve para saber se uma variável está definida
-                                        $usuario = addslashes($_POST['usuario']); //addslashes adiciona 
-                                        $senha   = addslashes($_POST['senha']);     //uma proteção...
+                                    //se a variavel estiver definida
+                                    if (isset($_POST['usuario'])) { 
+                                        //Variaveis recebem os valores
+                                        $usuario = addslashes($_POST['usuario']); 
+                                        $senha   = addslashes($_POST['senha']);    
 
-                                        if (!empty($usuario) && !empty($senha)) { //se as variáveis não estiverem vazias...
-                                            $u->conectar("db_finecrew", "localhost", "root", ""); //conecta com o banco
-                                            if ($u->msgErro == "") { //se não apresentar nenhuma mensagem de erro...
-                                                if (!$u->logar($usuario, $senha)) { //se as informações não corresponderem...
+                                        //se as variáveis não estiverem vazias
+                                        if (!empty($usuario) && !empty($senha)) { 
+                                            //conecta com o banco
+                                            $u->conectar("db_finecrew", "localhost", "root", "");
+
+                                            //se não apresentar nenhuma mensagem de erro
+                                            if ($u->msgErro == "") {
+                                                //Se as informações estiverem erradas
+                                                if (!$u->logar($usuario, $senha)) {
                                     ?>
                                                     <div class="text-center p-3 mb-2 bg-danger text-black bg-opacity-75 rounded">
                                                         <?php echo "Credenciais incorretas!"; ?>
                                                     </div>
                                                 <?php
                                                 }
-                                            } else { //caso existir algum erro, vai apresentar na tela...
+
+                                            //caso existir algum erro, vai apresentar na tela  
+                                            } else { 
                                                 ?>
                                                 <div class="text-center p-3 mb-2 bg-danger text-black bg-opacity-75 rounded">
                                                     <?php echo "Erro: " . $u->msgErro; ?>
                                                 </div>
                                             <?php
                                             }
-                                        } else { //se o usuário deixar algum campo vazio...
+
+                                        //se o usuário deixar algum campo vazio...   
+                                        } else { 
                                             ?>
                                             <div class="text-center p-3 mb-2 bg-danger text-black bg-opacity-75 rounded">
                                                 <?php echo "Preencha todos os campos obrigatórios!"; ?>

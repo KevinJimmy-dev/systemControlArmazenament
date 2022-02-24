@@ -1,12 +1,21 @@
 <?php
 //Página para editar um funcionário
+
+//Inclui o arquivo de conexão
 include_once '../../../Model/Entity/conexao.php';
 
+//Inicia sessão
 session_start();
+
+//Se não estiver logado
 if (!isset($_SESSION['id_usuario'])) {
+    //Realoca para a pagina de login
     header("location: login.php");
     exit;
+
+//Se o usuario for um funcionario
 } else if ($_SESSION['nivel_usuario'] != 1) {
+    //Realoca para a pagina de funcionario
     header("location: funcionario.php");
 }
 
@@ -15,7 +24,6 @@ $id_usuario = filter_input(INPUT_GET, 'id_usuario', FILTER_SANITIZE_NUMBER_INT);
 $result_usuarios = "SELECT * FROM usuarios WHERE id_usuario = '$id_usuario'";
 $resultado_usuarios = mysqli_query($conexaoMysqli, $result_usuarios);
 $linha_usuarios = mysqli_fetch_assoc($resultado_usuarios);
-
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +46,7 @@ $linha_usuarios = mysqli_fetch_assoc($resultado_usuarios);
         <nav class="navbar navbar-expand-lg" style="padding-right: 16px; padding-left: 16px;">
             <div class="brand-title">
                 <abbr title="Página Inicial">
-                    <a href="administrador.php"><img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo" width="120px"></a>
+                    <a href="administrador.php"><img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px"></a>
                 </abbr>
             </div>
             <a href="#" class="toggle-button">
@@ -97,12 +105,15 @@ $linha_usuarios = mysqli_fetch_assoc($resultado_usuarios);
             <h1>Editar Funcionário</h1>
         </div>
 
-        <?php
-        if (isset($_SESSION['msg'])) {
-            echo $_SESSION['msg'];
-            unset($_SESSION['msg']);
-        }
-        ?>
+        <div class="msg">
+            <?php
+            //Caso ocorrer algum erro, vai imprimir uma msg nessa variavel
+            if (isset($_SESSION['msg'])) {
+                echo $_SESSION['msg'];
+                unset($_SESSION['msg']);
+            }
+            ?>
+        </div>
 
         <div class="container w-50 p-3">
             <form method="POST" action="../../../Model/Entity/edit_func.php">
@@ -211,30 +222,34 @@ $linha_usuarios = mysqli_fetch_assoc($resultado_usuarios);
 
     <!-- Função que compara os valores antigos e os novos -->
     <script>
+        //Função que ativa/desativa o botão
         function comparar() {
             //Variáveis que possuem os novos valores (caso houver)
-            var nome_novo = document.getElementById('nome').value;
+            var nome_novo    = document.getElementById('nome').value;
             var usuario_novo = document.getElementById('username').value;
-            //var senha_novo   = document.getElementById('senha').value;
-            var nivel_novo = document.getElementById('nivel');
-            var value = nivel_novo.options[nivel_novo.selectedIndex].value;
-            var status_novo = document.getElementById('status');
-            var value1 = status_novo.options[status_novo.selectedIndex].value;
+            var nivel_novo   = document.getElementById('nivel');
+            var value        = nivel_novo.options[nivel_novo.selectedIndex].value;
+            var status_novo  = document.getElementById('status');
+            var value1       = status_novo.options[status_novo.selectedIndex].value;
 
             //Colocando o botao em uma variavel
             var button = document.getElementById('botao');
             var abbr = document.getElementById('abbr');
 
-            //Estrutura de decisão caso houver alguma modificação em um dos campos
+            //Caso não houver alguma modificação em um dos campos
             if (nome_or === nome_novo && usuario_or === usuario_novo && nivel_or === value && status_or === value1) {
-                //Se não, o botão continua desativado
+                //O botão continua desativado
                 button.setAttribute('disabled', 'disabled');
                 abbr.setAttribute('title', 'Altere um dos campos...');
+
+            //Se algum dos campos estiverem vazios
             } else if (nome_novo === "" || usuario_novo === "" || nivel_novo === "" || status_novo === "") {
                 button.setAttribute('disabled', 'disabled');
                 abbr.setAttribute('title', 'Não deixe nenhum campo vazio!');
+
+            //Se mudou 
             } else {
-                //Se sim, o botão é ativado
+                //O botão é ativado
                 button.removeAttribute('disabled');
                 abbr.setAttribute('title', 'Clique para salvar as alterações!');
             }

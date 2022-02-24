@@ -1,8 +1,11 @@
 <?php
 //Arquivo para deslogar
-    session_start(); // inicia a sessão...
+    //Inicia a sessão
+    session_start(); 
 
-    unset($_SESSION['id_usuario']); //destroi a sessão se não possui um id_usuario (não estiver logado)...
-    header("location: ../../resources/View/Pages/login.php"); //se o usuario nao possuir um id_usuario, manda ele devolta para a página login.php...
+    //Destroi a sessão se possuir um id_usuario
+    unset($_SESSION['id_usuario']); 
+    //Manda ele devolta para a página login.php...
+    header("location: ../../resources/View/Pages/login.php"); 
 
 ?>

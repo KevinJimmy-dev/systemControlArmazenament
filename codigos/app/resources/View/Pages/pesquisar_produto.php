@@ -1,13 +1,18 @@
 <?php
 //Página para pesquisar produtos
+
+//Inclui o arquivo de conexão
 include '../../../Model/Entity/conexao.php';
 
-session_start(); //inicia a sessão...
-if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir um id_usuario
-    header("location: login.php"); // vai mandar ele devolta para a página de login...
-    exit; //para a execução, do codigo restante...
-}
+//Inicia a sessão...
+session_start(); 
 
+//Se não estiver logado
+if (!isset($_SESSION['id_usuario'])) {
+    //vai realocar o usuario devolta para a página de login
+    header("location: login.php"); 
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +38,7 @@ if (!isset($_SESSION['id_usuario'])) { //se não estiver definida, não possuir 
             <div class="brand-title">
                 <a href="funcionario.php">
                     <abbr title="Página Inicial">
-                        <img class="img-logo" src="../imgs/logo-layoff.png" alt="Logo Layoff. Controll" width="120px">
+                        <img class="img-logo" src="../imgs/logo-storage1.png" alt="Logo Storage. System" width="120px">
                     </abbr>
                 </a>
             </div>
