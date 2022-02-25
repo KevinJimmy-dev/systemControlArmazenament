@@ -23,10 +23,10 @@ if (mysqli_num_rows($resultado_categoria) >= 1) {
     echo "<script>window.location.href = '../../../resources/View/Pages/editar_categoria.php?id_categoria=$id_categoria'</script>";
 
 //Senão, executa o update
-} else if ($resultado_produto = mysqli_query($conexaoMysqli, $result_produto)) {
+} else if (mysqli_query($conexaoMysqli, $result_produto)) {
     //Imprimi uma mensagem e realoca o usuario para a página que exibe as categorias
     $_SESSION['msg'] = "<p style='color:green;'>A Categoria foi editada com sucesso!</p>";
-    header("Location: ../../../resources/View/Pages/exibir_categorias.php");
+    header("Location: ../../resources/View/Pages/exibir_categorias.php");
 
 //Se não fizer nenhuma alteração, der erro
 } else {

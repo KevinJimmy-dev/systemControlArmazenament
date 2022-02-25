@@ -31,6 +31,7 @@ $linha_categoria     = mysqli_fetch_assoc($resultado_categoria);
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../fontawesome/css/all.min.css">
+    <link rel="shortcut icon" href="../imgs/icon.PNG" type="image/x-icon">
     <link rel="stylesheet" href="../_css/style.css">
     <link rel="stylesheet" href="../_css/cads.css">
     <title>Editar Categoria</title>
@@ -112,8 +113,8 @@ $linha_categoria     = mysqli_fetch_assoc($resultado_categoria);
             ?>
         </div>
 
-        <div class="container w-50   p-3">
-            <form method="POST" action="edit_categoria.php">
+        <div class="container w-50 p-3">
+            <form method="POST" action="../../../Model/Entity/edit_categoria.php">
                 <input type="hidden" name="id_categoria" value="<?php echo $linha_categoria['id_categoria']; ?>">
 
                 <div class="form-floating mb-3">
