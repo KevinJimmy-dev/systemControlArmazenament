@@ -154,10 +154,10 @@
 
   - `Word`
 
-### Link de nosso slide de apresentação
+### 💬 Link de nosso slide de apresentação
 
-  - <a href="https://www.canva.com/design/DAE4WBXWVNE/IN3Na5psaMWzR6lQ7v0fLg/view?utm_content=DAE4WBXWVNE&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" _blank>Clique aqui</a>
+  - <a href="https://www.canva.com/design/DAE4WBXWVNE/IN3Na5psaMWzR6lQ7v0fLg/view?utm_content=DAE4WBXWVNE&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" target="_blank">🔗 Clique aqui</a>
 
-### Link de nossa prototipação
+### 💬 Link de nossa prototipação
 
-  - <a href="https://www.canva.com/design/DAEuDRfPdSg/oXBztFqsGpRsQmqyG6jyQA/view?utm_content=DAEuDRfPdSg&utm_campaign=designshare&utm_medium=link&utm_source=homepage_design_menu" _blank>Clique aqui</a>
+  - <a href="https://www.canva.com/design/DAEuDRfPdSg/oXBztFqsGpRsQmqyG6jyQA/view?utm_content=DAEuDRfPdSg&utm_campaign=designshare&utm_medium=link&utm_source=homepage_design_menu" target="_blank">🔗 Clique aqui</a>
