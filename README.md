@@ -6,7 +6,11 @@
 
 ![Badge desenvolved](http://img.shields.io/static/v1?label=STATUS&message=%20DESENVOLVIDO&color=GREEN&style=for-the-badge) ![Badge stars](https://img.shields.io/github/stars/KevinJimmy-dev/systemControlArmazenament?style=for-the-badge) ![Badge license](https://img.shields.io/github/license/KevinJimmy-dev/systemControlArmazenament?label=LICENSE&style=for-the-badge)
 
-<h2> Objetivo do sistema</h2>
+<h2>🆕 Nova versão - System Storage v2</h2>
+<p>Nova versão do projeto desenvolvida, nela contém: novas funcionalidades, e sua principal adição: o Laravel, o framework artesão do PHP.</p>
+<p>Acesse o repositório -> https://github.com/KevinJimmy-dev/SystemStorageV2 </p>
+
+<h2>🗳️ Objetivo do sistema</h2>
 <p>O objetivo do sistema é facilitar o trabalho de quem está trabalhando no setor da cozinha da Instiuição Marista. Armazenando a chegada de alimentos, quantos possuem, quantos foram utilizados e armazenando todas essas informações em um banco de dados.</p>
 
 <p>A cozinha do Marista possui um estoque onde são armazenados os alimentos que são utilizados no dia a dia.</p>
